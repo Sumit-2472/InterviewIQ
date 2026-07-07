@@ -11,7 +11,7 @@ const PORT=process.env.PORT || 6000;
 import cookieParser from "cookie-parser";
 import paymentRouter from "./routes/payment.route.js";
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"https://interviewiq-1client-rhcb.onrender.com",
     credentials:true
 }))
 
