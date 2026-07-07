@@ -77,8 +77,27 @@ function Pricing() {
         order_id: result.data.id,
 
         handler: async function (response) {
-          console.log(response);
-        },
+  try {
+    const verifyRes = await axios.post(
+      ServerUrl + "/api/payment/verify",
+      response,
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(verifyRes.data);
+
+    alert("Payment Successful!");
+
+    // Refresh current user so Redux gets updated credits
+    window.location.reload();
+
+  } catch (error) {
+    console.log(error);
+    alert("Payment verification failed");
+  }
+},
         theme: {
           color: "#10b981",
         },

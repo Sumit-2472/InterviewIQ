@@ -1,6 +1,7 @@
 import razorpay from "../services/razorpay.service.js";
 import Payment from "../models/payment.model.js";
 import crypto from "crypto";
+import User from "../models/user.model.js";
 export const createOrder = async (req, res) => {
   try {
     const { planId, amount, credits } = req.body;
@@ -28,12 +29,13 @@ export const createOrder = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: `failed to create Razorpay order ${error}` });
+      .json({ message: `failed to create Razorpay order ${err}` });
   }
 };
 
 export const verifyPayment = async (req, res) => {
   try {
+    console.log("Verify payment API called");
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
 
