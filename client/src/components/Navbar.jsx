@@ -11,6 +11,7 @@ import { ServerUrl } from '../App';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice.js';
 import AuthModel from './AuthModel.jsx';
+import { useEffect, useRef } from "react";
 const Navbar = () => {
   const {userData}= useSelector((state)=>state.user)
   const [showCreditPopup,setShowCreditPopup]= useState(false);
@@ -18,6 +19,8 @@ const Navbar = () => {
   const navigate= useNavigate();
   const dispatch=useDispatch();
   const [showAuth, setShowAuth]= useState(false);
+  const creditRef = useRef(null);
+  const userRef = useRef(null); 
   const handleLogout=async ()=>{
     try{
       await axios.get(ServerUrl+"/api/auth/logout",{withCredentials:true});
@@ -29,6 +32,34 @@ const Navbar = () => {
     console.error(err);
   }
 };
+
+useEffect(() => {
+  function handleClickOutside(event) {
+    if (
+      creditRef.current &&
+      !creditRef.current.contains(event.target)
+    ) {
+      setShowCreditPopup(false);
+    }
+
+    if (
+      userRef.current &&
+      !userRef.current.contains(event.target)
+    ) {
+      setShowUserPopup(false);
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+
+
+
   return (
     <div className="bg-[#f3f3f3] flex justify-center px-4 pt-6">
       <motion.div
@@ -48,7 +79,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-6 relative">
-            <div className="relative">
+            <div className="relative" ref={creditRef}>
               <button onClick={()=> {
                 if(!userData){
                   setShowAuth(true);
@@ -77,7 +108,7 @@ const Navbar = () => {
               )}
             </div>
 
-            <div className='relative'>
+            <div className='relative' ref={userRef}>
                 <button
                   onClick={()=> setShowUserPopup(!showUserPopup)}
                   className='w-9 h-9 bg-black text-white rounded-full flex items-center justify-center font-semibold'
