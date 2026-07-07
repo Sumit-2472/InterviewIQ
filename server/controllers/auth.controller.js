@@ -13,8 +13,8 @@ export const googleAuth=async(req,res)=>{
         console.log("TYPE:", typeof token);
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax",
+            secure: true,
+            sameSite: none,
             path:"/"
         });
         return res.status(200).json({
