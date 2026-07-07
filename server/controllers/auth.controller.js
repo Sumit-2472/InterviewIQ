@@ -52,7 +52,7 @@ export const logOut=async(req,res)=>{
          res.clearCookie("token", {
       httpOnly: true,
       secure: true,
-      sameSite: none,
+      sameSite: "none",
       path: "/",
     }); // -->  Ye browser me jo token cookie save hai usse delete kar deta hai. ye logout ke liye important hai.
         return res.status(200).json({message:"User logged out successfully"});
