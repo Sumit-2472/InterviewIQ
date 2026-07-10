@@ -122,8 +122,8 @@ function Home() {
               <span className="relative inline-block">
                 <span
   className="
-    bg-green-100
-    dark:bg-transparent
+    bg-white
+    dark:bg-green-900/30
     text-green-600
     dark:text-green-400
     px-5

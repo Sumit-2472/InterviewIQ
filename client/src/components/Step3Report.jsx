@@ -185,7 +185,7 @@ doc.save("AI_Interview_Report.pdf");
 
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-emerald-950 px-4 sm:px-6 lg:px-10 py-8 transition-colors duration-300">
+    <div className="min-h-screen bg-white px-4 sm:px-6 lg:px-10 py-8 transition-colors duration-300 dark:bg-linear-to-br dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950">
       <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="mb-10 w-full flex items-start gap-4 flex-wrap">
           <button
@@ -219,9 +219,9 @@ doc.save("AI_Interview_Report.pdf");
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-slate-900/80 backdrop-blur rounded-2xl shadow-lg p-6 sm:p-8 border border-slate-700"
+            className="bg-white backdrop-blur rounded-2xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:bg-slate-900/80 dark:border-slate-700"
           >
-            <h3 className="text-gray-500 dark:text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
+            <h3 className="text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
               Overall Performance
             </h3>
             <div className="relative w-20 h-20 sm:w-25 sm:h-25 mx-auto">
