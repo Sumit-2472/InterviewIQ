@@ -1,4 +1,6 @@
 import React from "react";
+import { useTheme } from "next-themes";
+import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { BsRobot, BsCoin } from "react-icons/bs";
 import { FaUserAstronaut } from "react-icons/fa";
@@ -21,6 +23,11 @@ const Navbar = () => {
   const [showAuth, setShowAuth] = useState(false);
   const creditRef = useRef(null);
   const userRef = useRef(null);
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
   const handleLogout = async () => {
     try {
       await axios.get(ServerUrl + "/api/auth/logout", {
@@ -143,6 +150,12 @@ const Navbar = () => {
               </div>
             )}
           </div>
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-darkBox-800 dark:text-white"
+          >
+            {theme === "dark" ? <BsSunFill /> : <BsMoonStarsFill />}
+          </button>
         </div>
       </motion.div>
       {showAuth && <AuthModel onClose={() => setShowAuth(false)} />}
