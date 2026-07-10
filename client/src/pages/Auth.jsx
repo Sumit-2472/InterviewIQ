@@ -51,7 +51,7 @@ function Auth({isModel=false}) {
         </div>
         <h1 className='text-2xl md:text-3xl font-semibold text-center leading-snug mb-4 text-gray-900 dark:text-white'>
             Continue with
-            <span className='bg-green-100 text-green-600 px-3 py-1 rounded-full inline-flex items-center gap-2'>
+            <span className='bg-green-100 text-green-600 px-3 py-1 rounded-full inline-flex items-center gap-2 dark:bg-emerald-900/40 dark:text-emerald-300'>
                 <IoSparkles size={16} />
                 AI Smart Interview
             </span>

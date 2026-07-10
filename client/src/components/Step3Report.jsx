@@ -335,8 +335,8 @@ doc.save("AI_Interview_Report.pdf");
                     </div>
                   </div>
 
-                  <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                    <p className="text-xs text-green-600 font-semibold mb-1">
+                  <div className="bg-green-50 border border-green-200 p-4 rounded-lg dark:bg-emerald-950/40 dark:border-emerald-800">
+                    <p className="text-xs text-green-600 font-semibold mb-1 dark:text-emerald-300">
                       AI Feedback
                     </p>
 
