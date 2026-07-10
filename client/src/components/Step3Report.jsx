@@ -110,7 +110,7 @@ const downloadPDF = () => {
 
   // ================= FINAL SCORE BOX =================
   doc.setFillColor(240, 253, 244);
-  doc.roundedRect(margin, currentY, contentWidth, 20, 4, 4, "F");
+  doc.roundedRect(margin, currentY, contentWidth, 28, 4, 4, "F");
 
   doc.setFontSize(14);
   doc.setTextColor(0, 0, 0);
@@ -118,11 +118,19 @@ const downloadPDF = () => {
   doc.text(
     `Final Score: ${finalScore}/10`,
     pageWidth / 2,
-    currentY + 12,
+    currentY + 10,
     { align: "center" }
   );
 
-  currentY += 30;
+  doc.setFontSize(11);
+  doc.text(
+    `Interview Difficulty: ${difficulty}`,
+    pageWidth / 2,
+    currentY + 20,
+    { align: "center" }
+  );
+
+  currentY += 38;
 
   // ================= ADVICE =================
   let advice = "";
