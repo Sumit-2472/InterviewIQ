@@ -120,9 +120,21 @@ function Home() {
             >
               Practice Interviews with{" "}
               <span className="relative inline-block">
-                <span className="bg-green-100 text-green-600 px-5 py-1 rounded-full">
-                  AI Intelligence
-                </span>
+                <span
+  className="
+    bg-green-100
+    dark:bg-[#173a2b]
+    text-green-600
+    dark:text-green-300
+    px-5
+    py-1
+    rounded-full
+    transition-all
+    duration-300
+  "
+>
+  AI Intelligence
+</span>
               </span>
             </motion.h1>
 

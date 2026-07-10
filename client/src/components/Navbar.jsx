@@ -61,19 +61,19 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="bg-[#f3f3f3] flex justify-center px-4 pt-6">
+    <div className="bg-[#f3f3f3] dark:bg-slate-950 transition-colors duration-300 flex justify-center px-4 pt-6">
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="w-full max-w-6xl bg-white rounded-3xl shadow-sm border border-gray-200 px-8 py-4 flex justify-between items-center relative"
+        className="w-full max-w-6xl bg-white dark:bg-slate-900 rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-8 py-4 flex justify-between items-center relative transition-colors duration-300"
       >
         <div className="flex items-center gap-3 cursor-pointer">
-          <div className="bg-black text-white p-2 rounded-lg">
+          <div className="bg-black dark:bg-green-600 text-white p-2 rounded-lg transition-colors duration-300">
             <BsRobot size={18} />
           </div>
 
-          <h1 className="font-semibold hidden md:block text-lg">
+          <h1 className="font-semibold hidden md:block text-lg text-black dark:text-white transition-colors duration-300">
             InterviewIQ.AI
           </h1>
         </div>
@@ -89,20 +89,20 @@ const Navbar = () => {
                 setShowCreditPopup(!showCreditPopup);
                 setShowUserPopup(false);
               }}
-              className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full text-md hover:bg-gray-200 transition"
+              className="flex items-center gap-2 bg-gray-100 dark:bg-slate-800 text-black dark:text-white px-4 py-2 rounded-full text-md hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
             >
               <BsCoin size={20} />
               {userData?.credits || 0}
             </button>
             {showCreditPopup && (
-              <div className="absolute right-12 mt-3 w-64 bg-white shadow-xl border border-gray-200 rounded-lg p-5 z-50">
-                <p className="text-sm text-gray-600 mb-4">
+              <div className="absolute right-12 mt-3 w-64 bg-white dark:bg-slate-900 shadow-xl border border-gray-200 dark:border-slate-700 rounded-lg p-5 z-50 transition-colors duration-300">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                   Need more credits to continue interviews?
                 </p>
 
                 <button
                   onClick={() => navigate("/pricing")}
-                  className="w-full bg-black text-white py-2 rounded-lg text-sm"
+                  className="w-full bg-black dark:bg-green-600 text-white py-2 rounded-lg text-sm transition-colors duration-300"
                 >
                   Buy more credits
                 </button>
@@ -121,21 +121,21 @@ const Navbar = () => {
                 setShowUserPopup(!showUserPopup);
                 setShowCreditPopup(false);
               }}
-              className="w-9 h-9 bg-black text-white rounded-full flex items-center justify-center font-semibold"
+              className="w-9 h-9 bg-black dark:bg-green-600 text-white rounded-full flex items-center justify-center font-semibold transition-colors duration-300"
             >
               {userData?.name?.charAt(0).toUpperCase() || (
                 <FaUserAstronaut size={16} />
               )}
             </button>
             {userData && showUserPopup && (
-              <div className="absolute right-0 mt-3 w-48 bg-white shadow-xl border border-gray-200 rounded-xl p-4 z-50">
-                <p className="text-md text-blue-500 font-medium mb-1">
+              <div className="absolute right-0 mt-3 w-48 bg-white dark:bg-slate-900 shadow-xl border border-gray-200 dark:border-slate-700 rounded-xl p-4 z-50 transition-colors duration-300">
+                <p className="text-md text-blue-500 dark:text-green-400 font-medium mb-1">
                   {userData?.name}
                 </p>
 
                 <button
                   onClick={() => navigate("/history")}
-                  className="w-full text-left text-sm py-2 hover:text-black text-gray-600"
+                  className="w-full text-left text-sm py-2 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors duration-300"
                 >
                   Interview History
                 </button>
@@ -152,7 +152,7 @@ const Navbar = () => {
           </div>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-darkBox-800 dark:text-white"
+            className="p-2 rounded-full bg-gray-100 dark:bg-black-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
           >
             {theme === "dark" ? <BsSunFill /> : <BsMoonStarsFill />}
           </button>
