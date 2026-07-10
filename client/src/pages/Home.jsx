@@ -123,7 +123,6 @@ function Home() {
                 <span
   className="
     bg-white
-    dark:bg-gray-800
     text-green-600
     dark:text-green-400
     px-5
