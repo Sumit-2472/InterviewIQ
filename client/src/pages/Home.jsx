@@ -123,13 +123,13 @@ function Home() {
                 <span
   className="
     bg-green-100
-    dark:bg-[#173a2b]
+    dark:bg-transparent
     text-green-600
-    dark:text-green-300
+    dark:text-green-400
     px-5
     py-1
     rounded-full
-    transition-all
+    transition-colors
     duration-300
   "
 >

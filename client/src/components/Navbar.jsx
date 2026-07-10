@@ -23,10 +23,15 @@ const Navbar = () => {
   const [showAuth, setShowAuth] = useState(false);
   const creditRef = useRef(null);
   const userRef = useRef(null);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
   const handleLogout = async () => {
     try {
@@ -61,12 +66,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="bg-[#f3f3f3] dark:bg-slate-950 transition-colors duration-300 flex justify-center px-4 pt-6">
+    <div className="bg-[#f3f3f3] dark:bg-black transition-colors duration-300 flex justify-center px-4 pt-6">
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="w-full max-w-6xl bg-white dark:bg-slate-900 rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-8 py-4 flex justify-between items-center relative transition-colors duration-300"
+        className="w-full max-w-6xl bg-white dark:bg-black rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-8 py-4 flex justify-between items-center relative transition-colors duration-300"
       >
         <div className="flex items-center gap-3 cursor-pointer">
           <div className="bg-black dark:bg-green-600 text-white p-2 rounded-lg transition-colors duration-300">
@@ -152,9 +157,20 @@ const Navbar = () => {
           </div>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-100 dark:bg-black-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
+            type="button"
+            aria-label={
+              mounted && resolvedTheme === "dark"
+                ? "Switch to light theme"
+                : "Switch to dark theme"
+            }
+            title={
+              mounted && resolvedTheme === "dark"
+                ? "Switch to light theme"
+                : "Switch to dark theme"
+            }
+            className="p-2 rounded-full bg-gray-100 dark:bg-slate-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
           >
-            {theme === "dark" ? <BsSunFill /> : <BsMoonStarsFill />}
+            {mounted && resolvedTheme === "dark" ? <BsSunFill /> : <BsMoonStarsFill />}
           </button>
         </div>
       </motion.div>
