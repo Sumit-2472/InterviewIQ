@@ -18,6 +18,7 @@ const dispatch= useDispatch();
 const [role, setRole] = useState("");
 const [experience, setExperience] = useState("");
 const [mode, setMode] = useState("Technical");
+const [interviewer, setInterviewer] = useState("female");
 const [resumeFile, setResumeFile] = useState(null);
 const [loading, setLoading] = useState(false);
 const [projects, setProjects] = useState([]);
@@ -36,6 +37,7 @@ const handleStart = async () => {
         role,
         experience,
         mode,
+        interviewer,
         resumeText,
         projects,
         skills,
@@ -50,7 +52,10 @@ const handleStart = async () => {
       dispatch(setUserData({...userData,credits:result.data.creditsLeft}))
     }
     setLoading(false);
-    onStart(result.data);
+    onStart({
+      ...result.data,
+      interviewer,
+    });
 
   }
 
@@ -194,6 +199,24 @@ const features = [
           <option value="Technical">Technical Interview</option>
           <option value="HR">HR Interview</option>
         </select>
+
+        <div>
+          <label
+            htmlFor="interviewer"
+            className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200"
+          >
+            Interviewer
+          </label>
+          <select
+            id="interviewer"
+            value={interviewer}
+            onChange={(e) => setInterviewer(e.target.value)}
+            className="w-full py-3 px-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+          >
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
 
         {!analysisDone && (
           <motion.div
