@@ -18,6 +18,7 @@ const dispatch= useDispatch();
 const [role, setRole] = useState("");
 const [experience, setExperience] = useState("");
 const [mode, setMode] = useState("Technical");
+const [difficulty, setDifficulty] = useState("Medium");
 const [interviewer, setInterviewer] = useState("female");
 const [resumeFile, setResumeFile] = useState(null);
 const [loading, setLoading] = useState(false);
@@ -37,6 +38,7 @@ const handleStart = async () => {
         role,
         experience,
         mode,
+        difficulty,
         interviewer,
         resumeText,
         projects,
@@ -199,6 +201,22 @@ const features = [
           <option value="Technical">Technical Interview</option>
           <option value="HR">HR Interview</option>
         </select>
+
+        <div>
+          <label htmlFor="difficulty" className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">
+            Interview Difficulty
+          </label>
+          <select
+            id="difficulty"
+            value={difficulty}
+            onChange={(e) => setDifficulty(e.target.value)}
+            className="w-full py-3 px-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+          >
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
 
         <div>
           <label

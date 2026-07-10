@@ -31,6 +31,8 @@ const Step3Report = ({ report }) => {
     communication = 0,
     correctness = 0,
     questionWiseScore = [],
+    difficulty = "Medium",
+    finalReport,
   } = report;
 
   const questionScoreData = questionWiseScore.map((score, index) => ({
@@ -47,15 +49,22 @@ const Step3Report = ({ report }) => {
   let performanceText = "";
   let shortTagline = "";
 
-  if (finalScore >= 8) {
+  const excellentScore = difficulty === "Hard" ? 7 : difficulty === "Easy" ? 8 : 8;
+  const adequateScore = difficulty === "Hard" ? 4 : difficulty === "Easy" ? 6 : 5;
+
+  if (finalScore >= excellentScore) {
     performanceText = "Ready for job opportunities.";
     shortTagline = "Excellent clarity and structured responses.";
-  } else if (finalScore >= 5) {
+  } else if (finalScore >= adequateScore) {
     performanceText = "Needs minor improvement before interviews.";
     shortTagline = "Good foundation, refine articulation.";
   } else {
     performanceText = "Significant improvement required.";
     shortTagline = "Work on clarity and confidence.";
+  }
+
+  if (finalReport?.overallFeedback) {
+    shortTagline = finalReport.overallFeedback;
   }
 
 const score = finalScore;
@@ -118,10 +127,12 @@ const downloadPDF = () => {
   // ================= ADVICE =================
   let advice = "";
 
-  if (finalScore >= 8) {
+  if (finalReport?.finalAnalysis) {
+    advice = finalReport.finalAnalysis;
+  } else if (finalScore >= excellentScore) {
     advice =
       "Excellent performance. Maintain confidence and structure. Continue refining clarity and supporting answers with strong real-world examples.";
-  } else if (finalScore >= 5) {
+  } else if (finalScore >= adequateScore) {
     advice =
       "Good foundation shown. Improve clarity and structure. Practice delivering concise, confident answers with stronger supporting examples.";
   } else {

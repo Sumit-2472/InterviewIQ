@@ -92,17 +92,24 @@ const parsed = JSON.parse(aiResponse);
 
 export const generateQuestion = async (req, res) => {
   try {
-    let {role,experience,mode,resumeText,projects,skills} = req.body;
+    let {role,experience,mode,difficulty,resumeText,projects,skills} = req.body;
 
     // Remove extra spaces
     role = role?.trim();
     experience = experience?.trim();
     mode = mode?.trim();
+    difficulty = difficulty?.trim();
 
     // Validate required fields
-    if (!role || !experience || !mode) {
+    if (!role || !experience || !mode || !difficulty) {
       return res.status(400).json({
-        message: "Role, Experience and Mode are required.",
+        message: "Role, Experience, Mode and Difficulty are required.",
+      });
+    }
+
+    if (!["Easy", "Medium", "Hard"].includes(difficulty)) {
+      return res.status(400).json({
+        message: "Difficulty must be Easy, Medium, or Hard.",
       });
     }
 
@@ -149,6 +156,8 @@ export const generateQuestion = async (req, res) => {
 
     Interview Mode:${mode}
 
+    Interview Difficulty:${difficulty}
+
     Projects:${projectText}
 
     Skills:${skillsText}
@@ -182,14 +191,14 @@ Strict Rules:
 - Keep language simple and conversational.
 - Questions must feel practical and realistic.
 
-Difficulty progression:
-Question 1 → easy  
-Question 2 → easy  
-Question 3 → medium  
-Question 4 → medium  
-Question 5 → hard  
+Every question must match the selected Interview Difficulty exactly. Do not mix difficulty levels.
 
-Make questions based on the candidate’s role, experience,interviewMode, projects, skills, and resume details.
+Difficulty guidance:
+- Easy: Generate five beginner-level questions focused on fundamentals. Keep them straightforward, avoid tricky scenarios, and suit freshers and beginners.
+- Medium: Generate five standard questions requiring conceptual understanding and moderate problem-solving, like typical technical or HR interviews.
+- Hard: Generate five advanced questions requiring deep technical knowledge, optimization, reasoning, and edge cases where applicable, like top product-based company interviews.
+
+Make questions based on the candidate's role, experience, interview mode, selected difficulty, projects, skills, and resume details.
 `
       }
       ,
@@ -228,12 +237,13 @@ const interview = await Interview.create({
     role,
     experience,
     mode,
+    difficulty,
     resumeText: safeResume,
 
-    questions: questionsArray.map((q, index) => ({
+    questions: questionsArray.map((q) => ({
         question: q,
-        difficulty: ["easy", "easy", "medium", "medium", "hard"][index],
-        timeLimit: [60, 60, 90, 90, 120][index],
+        difficulty,
+        timeLimit: { Easy: 60, Medium: 90, Hard: 120 }[difficulty],
     })),
 });
 
@@ -265,16 +275,10 @@ export const submitAnswer = async (req, res) => {
   try {
     const { interviewId, questionIndex, answer, timeTaken } = req.body;
 
-    const interview = await Interview.findOne({
+const interview = await Interview.findOne({
     _id: interviewId,
     userId: req.userId
 });
-    const question = interview.questions[questionIndex];
-    if (question.answer) {
-    return res.status(400).json({
-        message: "Answer already submitted."
-    });
-}
     if (!interview) {
     return res.status(404).json({
         message: "Interview not found"
@@ -287,6 +291,12 @@ if (
 ) {
     return res.status(400).json({
         message: "Invalid question index"
+    });
+}
+    const question = interview.questions[questionIndex];
+    if (question.answer) {
+    return res.status(400).json({
+        message: "Answer already submitted."
     });
 }
     // If no answer
@@ -326,6 +336,13 @@ const messages = [
 You are a professional human interviewer evaluating a candidate's answer in a real interview.
 
 Evaluate naturally and fairly, like a real person would.
+
+Interview Difficulty: ${interview.difficulty}
+
+Difficulty-specific evaluation rules:
+- Easy: Be more lenient, expect fundamental understanding, and do not heavily reduce scores for minor mistakes.
+- Medium: Evaluate as a standard interview. Expect good conceptual understanding and deduct marks for incomplete answers.
+- Hard: Evaluate strictly. Expect detailed technical explanations, optimization, reasoning, and relevant edge cases. Do not award high scores for basic answers.
 
 Score the answer in these areas (0 to 10):
 
@@ -437,7 +454,7 @@ if (unanswered) {
 }*/
 
         // Already completed
-        if (interview.completed) {
+        if (interview.status === "Completed") {
             return res.status(400).json({
                 success: false,
                 message: "Interview already completed."
@@ -478,8 +495,52 @@ if (unanswered) {
             ? Math.round(totalCorrectness / totalQuestions)
             : 0;
 
+        const reportMessages = [
+            {
+                role: "system",
+                content: `
+You are a professional interview coach producing a final interview report.
+
+Assess the candidate relative to the selected interview difficulty. A 7/10 can be good for Hard but only average for Easy.
+
+Return ONLY valid JSON in this format:
+{
+  "overallFeedback": "string",
+  "strengths": ["string"],
+  "weaknesses": ["string"],
+  "recommendations": ["string"],
+  "finalAnalysis": "string"
+}
+
+Provide concise, practical feedback. Include 2-3 items in each array.
+`,
+            },
+            {
+                role: "user",
+                content: JSON.stringify({
+                    role: interview.role,
+                    experience: interview.experience,
+                    mode: interview.mode,
+                    difficulty: interview.difficulty,
+                    finalScore,
+                    confidence: avgConfidence,
+                    communication: avgCommunication,
+                    correctness: avgCorrectness,
+                    questions: interview.questions.map((q) => ({
+                        question: q.question,
+                        answer: q.answer || "No answer submitted",
+                        score: q.score || 0,
+                        feedback: q.feedback || "No feedback available",
+                    })),
+                }),
+            },
+        ];
+
+        const finalReport = JSON.parse(await askAi(reportMessages));
+
         interview.finalScore=finalScore;
-        interview.status="Completed";    
+        interview.status="Completed";
+        interview.finalReport = finalReport;
         await interview.save();
 
         //---------------------------------------------------
@@ -491,6 +552,8 @@ if (unanswered) {
     confidence: Number(avgConfidence.toFixed(1)),
     communication: Number(avgCommunication.toFixed(1)),
     correctness: Number(avgCorrectness.toFixed(1)),
+    difficulty: interview.difficulty,
+    finalReport,
 
     questionWiseScore: interview.questions.map((q) => ({
         question: q.question,
@@ -569,6 +632,8 @@ export const getMyInterviewReport=async (req,res) => {
     confidence: Number(avgConfidence.toFixed(1)),
     communication: Number(avgCommunication.toFixed(1)),
     correctness: Number(avgCorrectness.toFixed(1)),
+    difficulty: interview.difficulty,
+    finalReport: interview.finalReport,
 
     questionWiseScore: interview.questions
         });

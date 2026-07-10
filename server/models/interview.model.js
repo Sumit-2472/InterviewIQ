@@ -1,8 +1,15 @@
 import mongoose from "mongoose";
 
 const questionsSchema = new mongoose.Schema({
-  question: String,
-  difficulty: String,
+  question: {
+    type: String,
+    required: true,
+  },
+  difficulty: {
+    type: String,
+    enum: ["Easy", "Medium", "Hard"],
+    required: true,
+  },
   timeLimit: Number,
   answer: String,
   feedback: String,
@@ -40,6 +47,11 @@ const interviewSchema = new mongoose.Schema({
     enum: ["HR", "Technical"],
     required: true,
   },
+  difficulty: {
+    type: String,
+    enum: ["Easy", "Medium", "Hard"],
+    required: true,
+  },
   resumeText:{
     type:String,
   },
@@ -52,7 +64,14 @@ const interviewSchema = new mongoose.Schema({
     type:String,
     enum:["Incompleted","Completed"],
     default:"Incompleted",
-  }
+  },
+  finalReport: {
+    overallFeedback: String,
+    strengths: [String],
+    weaknesses: [String],
+    recommendations: [String],
+    finalAnalysis: String,
+  },
   /*
   for finishInterview() in interview.controller.js
   completed: {
