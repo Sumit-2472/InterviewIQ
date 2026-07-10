@@ -135,7 +135,7 @@ function Home() {
 >
   AI Intelligence
 </span>
-              </span>
+            </span>
             </motion.h1>
 
             <motion.p
