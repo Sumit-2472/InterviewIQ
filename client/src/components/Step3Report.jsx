@@ -310,7 +310,7 @@ doc.save("AI_Interview_Report.pdf");
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8"
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 transition-colors duration-300 dark:bg-slate-900"
           >
             <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-white mb-6">
               Question Breakdown
