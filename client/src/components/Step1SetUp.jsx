@@ -115,19 +115,19 @@ const features = [
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-4"
+      className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-4 transition-colors duration-300 dark:from-slate-950 dark:to-slate-900"
     >
-      <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden">
+      <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden transition-colors duration-300 dark:bg-slate-900">
         <motion.div
            initial={{ x: -80, opacity: 0 }}
            animate={{ x: 0, opacity: 1 }}
            transition={{ duration: 0.7 }}
-           className="relative bg-linear-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center"
+           className="relative bg-linear-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center dark:from-emerald-950/60 dark:to-slate-900"
         >
-        <h2 className="text-4xl font-bold text-gray-800 mb-6">
+        <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-6">
           Start Your AI Interview
         </h2>
-        <p className="text-gray-600 mb-10">
+        <p className="text-gray-600 dark:text-gray-300 mb-10">
           Practice real interview scenarios powered by AI.
           Improve communication, technical skills, and confidence.
         </p>
@@ -140,10 +140,10 @@ const features = [
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.3 + index * 0.15 }}
                       whileHover={{ scale: 1.03 }}
-                      className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-sm cursor-pointer"
+                      className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-sm cursor-pointer dark:bg-slate-800"
                     >
                     {item.icon}
-                    <span className="text-gray-700 font-medium">
+                    <span className="text-gray-700 dark:text-gray-200 font-medium">
                       {item.text}
                     </span>
                     </motion.div>
@@ -156,9 +156,9 @@ const features = [
         initial={{ x: 80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="p-12 bg-white"
+        className="p-12 bg-white dark:bg-slate-900"
     >
-        <h2 className="text-3xl font-bold text-gray-800 mb-8">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
           Interview SetUp
         </h2>
 
@@ -170,7 +170,7 @@ const features = [
             <input
               type="text"
               placeholder="Role (e.g. Software Engineer)"
-              className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition"
+              className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition dark:border-slate-700 dark:bg-slate-800 dark:text-white"
               onChange={(e) => setRole(e.target.value)}
               value={role}/>
         </div>
@@ -181,7 +181,7 @@ const features = [
         <input
           type="text"
           placeholder="Experience (e.g. 2 years)"
-          className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition"
+          className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition dark:border-slate-700 dark:bg-slate-800 dark:text-white"
           onChange={(e) => setExperience(e.target.value)}
           value={experience}/>
         </div>
@@ -189,7 +189,7 @@ const features = [
         <select
           value={mode}
           onChange={(e) => setMode(e.target.value)}
-          className="w-full py-3 px-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition"
+          className="w-full py-3 px-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition dark:border-slate-700 dark:bg-slate-800 dark:text-white"
  >         
           <option value="Technical">Technical Interview</option>
           <option value="HR">HR Interview</option>
@@ -199,7 +199,7 @@ const features = [
           <motion.div
             whileHover={{ scale: 1.02 }}
             onClick={() => document.getElementById("resumeUpload").click()}
-            className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition"
+            className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition dark:border-slate-600 dark:hover:bg-emerald-950/40"
           >
           <FaFileUpload className="text-4xl mx-auto text-green-600 mb-3" />
           <input
@@ -209,7 +209,7 @@ const features = [
             className="hidden"
             onChange={(e) => setResumeFile(e.target.files[0])}
           />
-          <p className="text-gray-600 font-medium">
+          <p className="text-gray-600 dark:text-gray-300 font-medium">
             {resumeFile ? `Selected: ${resumeFile.name}` : "Click to upload your resume(Optional)"} {/* resumeFile.name bhi aa skta hai Selected ki jgh */}
           </p>
 
@@ -230,17 +230,17 @@ const features = [
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1,y: 0 }}
-            className="bg-gray-50 p-5 space-y-4 rounded-xl border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800">
+            className="bg-gray-50 p-5 space-y-4 rounded-xl border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
               Resume Analysis Result
             </h3>
             {
               projects.length > 0 && (
                 <div>
-                  <p className="text-gray-700 mb-1 font-medium">
+                  <p className="text-gray-700 dark:text-gray-200 mb-1 font-medium">
                     Projects:
                   </p>
-                  <ul className="list-disc list-inside text-gray-600 space-y-1">
+                  <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-1">
                     {
                       projects.map((p,i) => (
                         <li key={i}>{p}</li>
@@ -254,7 +254,7 @@ const features = [
               
               skills.length > 0 && (
                 <div>
-                  <p className="text-gray-700 mb-1 font-medium">
+                  <p className="text-gray-700 dark:text-gray-200 mb-1 font-medium">
                     Slills:
                   </p>
                   <div className="flex flex-wrap gap-2">

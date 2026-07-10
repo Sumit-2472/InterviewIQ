@@ -113,19 +113,19 @@ function Pricing() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-emerald-5 py-16 px-6">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-emerald-50 py-16 px-6 transition-colors duration-300 dark:from-slate-950 dark:to-emerald-950/40">
       <div className="max-w-6xl mx-auto mb-14 flex items-start gap-4">
         <button
           onClick={() => navigate("/")}
-          className="mt-2 p-3 rounded-full bg-white shadow hover:shadow-md transition"
+          className="mt-2 p-3 rounded-full bg-white shadow hover:shadow-md transition dark:bg-slate-900 dark:border dark:border-slate-700"
         >
-          <FaArrowLeft className="text-gray-600" />
+          <FaArrowLeft className="text-gray-600 dark:text-gray-300" />
         </button>
         <div className="text-center w-full">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-gray-500 text-lg mb-4">
+          <p className="text-gray-500 dark:text-gray-300 text-lg mb-4">
             Flexible pricing to match your interview preparation goals.
           </p>
         </div>
@@ -143,8 +143,8 @@ function Pricing() {
                   border
                     ${
                       isSelected
-                        ? "border-emerald-600 shadow-2xl bg-white"
-                        : "border-gray-200 bg-white shadow-md"
+                        ? "border-emerald-600 shadow-2xl bg-white dark:bg-slate-900"
+                        : "border-gray-200 bg-white shadow-md dark:border-slate-700 dark:bg-slate-900"
                     }
                     ${plan.default ? "cursor-default" : "cursor-pointer"}
                     `}
@@ -161,13 +161,13 @@ function Pricing() {
               {/* Default Tag */}
               {plan.default && (
                 <div className="absolute top-6 right-6">
-                  <div className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full">
+                  <div className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full dark:bg-slate-700 dark:text-gray-200">
                     Default
                   </div>
                 </div>
               )}
               {/* Plan Name */}
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                 {plan.name}
               </h3>
 
@@ -176,10 +176,10 @@ function Pricing() {
                 <span className="text-3xl font-bold text-emerald-600">
                   {plan.price}
                 </span>
-                <p className="text-gray-500 mt-1">{plan.credits} Credits</p>
+                <p className="text-gray-500 dark:text-gray-300 mt-1">{plan.credits} Credits</p>
               </div>
               {/* Description */}
-              <p className="text-gray-500 mt-4 text-sm leading-relaxed">
+              <p className="text-gray-500 dark:text-gray-300 mt-4 text-sm leading-relaxed">
                 {plan.description}
               </p>
 
@@ -188,7 +188,7 @@ function Pricing() {
                 {plan.features.map((feature, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <FaCheckCircle className="text-emerald-500 text-sm" />
-                    <span className="text-gray-700 text-sm">{feature}</span>
+                    <span className="text-gray-700 dark:text-gray-200 text-sm">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -208,7 +208,7 @@ function Pricing() {
   transition ${
     isSelected
       ? "bg-emerald-600 text-white hover:opacity-90"
-      : "bg-gray-100 text-gray-700 hover:bg-emerald-50"
+      : "bg-gray-100 text-gray-700 hover:bg-emerald-50 dark:bg-slate-800 dark:text-gray-100 dark:hover:bg-emerald-900/40"
   }`}
                 >
                   {loadingPlan === plan.id

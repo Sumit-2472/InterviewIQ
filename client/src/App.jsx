@@ -11,6 +11,7 @@ export const ServerUrl= "https://interviewiq-3f66.onrender.com";
 import InterviewHistory from './pages/InterviewHistory.jsx';
 import Pricing from './pages/Pricing.jsx'
 import InterviewReport from './pages/InterviewReport.jsx'
+import ThemeToggle from './components/ThemeToggle.jsx'
 
 function App() {
   const dispatch=useDispatch();
@@ -32,15 +33,17 @@ function App() {
 
 
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/auth' element={<Auth />} />
-      <Route path='/interview' element={<InterviewPage/>} />
-      <Route path='/history' element={<InterviewHistory/>} />
-      <Route path='/pricing' element={<Pricing/>}/>
-      <Route path='/report/:id' element={<InterviewReport/>}/>
-
-    </Routes>
+    <>
+      <ThemeToggle />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/auth' element={<Auth />} />
+        <Route path='/interview' element={<InterviewPage/>} />
+        <Route path='/history' element={<InterviewHistory/>} />
+        <Route path='/pricing' element={<Pricing/>}/>
+        <Route path='/report/:id' element={<InterviewReport/>}/>
+      </Routes>
+    </>
   )
 }
 

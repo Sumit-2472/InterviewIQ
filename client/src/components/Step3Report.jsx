@@ -19,8 +19,8 @@ import {
 const Step3Report = ({ report }) => {
   if (!report) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 text-lg">Loading Report...</p>
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-950">
+        <p className="text-gray-500 dark:text-gray-300 text-lg">Loading Report...</p>
       </div>
     );
   }
@@ -185,22 +185,22 @@ doc.save("AI_Interview_Report.pdf");
 
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-green-50 px-4 sm:px-6 lg:px-10 py-8">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-green-50 px-4 sm:px-6 lg:px-10 py-8 transition-colors duration-300 dark:from-slate-950 dark:to-emerald-950/40">
       <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="mb-10 w-full flex items-start gap-4 flex-wrap">
           <button
             onClick={() => navigate("/history")}
-            className="mt-1 p-3 rounded-full bg-white shadow hover:shadow-md transition"
+            className="mt-1 p-3 rounded-full bg-white shadow hover:shadow-md transition dark:bg-slate-900 dark:border dark:border-slate-700"
           >
-            <FaArrowLeft className="text-gray-600" />
+            <FaArrowLeft className="text-gray-600 dark:text-gray-300" />
           </button>
 
           <div>
-            <h1 className="text-3xl font-bold flex-nowrap text-gray-800">
+            <h1 className="text-3xl font-bold flex-nowrap text-gray-800 dark:text-white">
               Interview Analytics Dashboard
             </h1>
 
-            <p className="text-gray-500 mt-2">
+            <p className="text-gray-500 dark:text-gray-300 mt-2">
               AI-Powered performance insights.
             </p>
           </div>
@@ -219,9 +219,9 @@ doc.save("AI_Interview_Report.pdf");
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 text-center"
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 text-center dark:bg-slate-900"
           >
-            <h3 className="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
+            <h3 className="text-gray-500 dark:text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
               Overall Performance
             </h3>
             <div className="realtive w-20 h-20 sm:w-25 sm:h-25 mx-auto">
@@ -238,11 +238,11 @@ doc.save("AI_Interview_Report.pdf");
             </div>
 
             <div className="mt-4">
-              <p className="font-semibold text-gray-800 text-sm sm:text-base">
+              <p className="font-semibold text-gray-800 dark:text-white text-sm sm:text-base">
                 {performanceText}
               </p>
 
-              <p className="text-gray-500 text-xs sm:text-sm mt-1">
+              <p className="text-gray-500 dark:text-gray-300 text-xs sm:text-sm mt-1">
                 {shortTagline}
               </p>
             </div>
@@ -251,9 +251,9 @@ doc.save("AI_Interview_Report.pdf");
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8"
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-6 sm:p-8 dark:bg-slate-900"
           >
-            <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-white mb-6">
               Skill Evaluation
             </h3>
 
@@ -282,7 +282,7 @@ doc.save("AI_Interview_Report.pdf");
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8"
+            className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 dark:bg-slate-900"
           >
             <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-4 sm:mb-6">
               Performance Trend
@@ -312,7 +312,7 @@ doc.save("AI_Interview_Report.pdf");
             animate={{ opacity: 1 }}
             className="bg-white rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8"
           >
-            <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-700 dark:text-white mb-6">
               Question Breakdown
             </h3>
 
@@ -320,13 +320,13 @@ doc.save("AI_Interview_Report.pdf");
               {questionWiseScore.map((q, i) => (
                 <div
                   key={i}
-                  className="bg-gray-50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-200"
+                  className="bg-gray-50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-gray-200 dark:bg-slate-800 dark:border-slate-700"
                 >
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
                     <div>
                       <p className="text-xs text-gray-400">Question {i + 1}</p>
 
-                      <p className="font-semibold text-gray-800 text-sm sm:text-base leading-relaxed">
+                      <p className="font-semibold text-gray-800 dark:text-white text-sm sm:text-base leading-relaxed">
                         {q.question || "Question not available"}
                       </p>
                     </div>
@@ -340,7 +340,7 @@ doc.save("AI_Interview_Report.pdf");
                       AI Feedback
                     </p>
 
-                    <p className="text-sm text-gray-700 leading-relaxed">
+                    <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">
                       {q.feedback && q.feedback.trim() !== ""
                         ? q.feedback
                         : "No feedback available for this question."}

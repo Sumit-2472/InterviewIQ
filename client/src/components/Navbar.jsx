@@ -1,6 +1,4 @@
 import React from "react";
-import { useTheme } from "next-themes";
-import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { BsRobot, BsCoin } from "react-icons/bs";
 import { FaUserAstronaut } from "react-icons/fa";
@@ -23,16 +21,6 @@ const Navbar = () => {
   const [showAuth, setShowAuth] = useState(false);
   const creditRef = useRef(null);
   const userRef = useRef(null);
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
   const handleLogout = async () => {
     try {
       await axios.get(ServerUrl + "/api/auth/logout", {
@@ -155,23 +143,6 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <button
-            onClick={toggleTheme}
-            type="button"
-            aria-label={
-              mounted && resolvedTheme === "dark"
-                ? "Switch to light theme"
-                : "Switch to dark theme"
-            }
-            title={
-              mounted && resolvedTheme === "dark"
-                ? "Switch to light theme"
-                : "Switch to dark theme"
-            }
-            className="p-2 rounded-full bg-gray-100 dark:bg-slate-800 text-black dark:text-white hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
-          >
-            {mounted && resolvedTheme === "dark" ? <BsSunFill /> : <BsMoonStarsFill />}
-          </button>
         </div>
       </motion.div>
       {showAuth && <AuthModel onClose={() => setShowAuth(false)} />}
