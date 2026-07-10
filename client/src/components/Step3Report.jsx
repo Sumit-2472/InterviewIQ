@@ -15,8 +15,8 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-
 const Step3Report = ({ report }) => {
+  const navigate = useNavigate();
   if (!report) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-950">
@@ -24,7 +24,7 @@ const Step3Report = ({ report }) => {
       </div>
     );
   }
-  const navigate = useNavigate();
+  
   const {
     finalScore = 0,
     confidence = 0,
@@ -224,7 +224,7 @@ doc.save("AI_Interview_Report.pdf");
             <h3 className="text-gray-500 dark:text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
               Overall Performance
             </h3>
-            <div className="realtive w-20 h-20 sm:w-25 sm:h-25 mx-auto">
+            <div className="relative w-20 h-20 sm:w-25 sm:h-25 mx-auto">
               <CircularProgressbar
                 value={percentage}
                 text={`${score}/10`}
