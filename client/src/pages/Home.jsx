@@ -100,7 +100,7 @@ function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f3f3f3] dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-red-500 dark:bg-blue-500">
       <Navbar />
 
       <div className="flex-1 px-6 py-20">
