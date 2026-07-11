@@ -14,16 +14,6 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { askAi } from "../services/openRouter.service.js";
 import User from "../models/user.model.js";
 import Interview from "../models/interview.model.js"
-
-const parseAiJson = (response) => {
-  const json = String(response)
-    .trim()
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/\s*```$/, "");
-  return JSON.parse(json);
-};
-
-const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value) || 0));
 export const analyzeResume=async (req,res)=>{
     try{
         if(!req.file) {
@@ -400,55 +390,20 @@ Answer: ${answer}
       }
     ];
 
-messages[0].content = `
-You are a Senior Technical Interviewer and experienced Career Mentor. Evaluate this candidate's answer as in a real interview.
-
-Interview difficulty: ${interview.difficulty}. Be more lenient for Easy, expect complete standard answers for Medium, and require depth, reasoning, optimization, and edge cases for Hard.
-
-Compare the answer with the interview-quality ideal answer you provide. Be educational, constructive, precise, and encouraging. Identify exact incorrect or incomplete statements when applicable. Never respond only with "Correct" or "Incorrect". Explain incorrect terminology and missing concepts in simple language.
-
-Return ONLY valid JSON matching this exact schema:
-{
-  "score": 0,
-  "confidence": 0,
-  "communication": 0,
-  "correctness": 0,
-  "feedback": {
-    "summary": "Overall evaluation in 2-3 sentences.",
-    "whatYouDidWell": ["specific strength"],
-    "whereYouWereWrong": [{"issue": "You mentioned 'X', but this is incorrect because...", "reason": "why it is wrong or incomplete", "correctWay": "Instead, you should say..."}],
-    "missingConcepts": ["important missing concept"],
-    "idealAnswer": "A concise interview-quality answer, 150-250 words when the question warrants it.",
-    "improvementTips": ["actionable next step"],
-    "interviewerComment": "A professional mentoring comment."
-  }
-}
-
-Scoring: score is 0-10. Confidence, communication, and correctness are integer percentages from 0-100. Use arrays with an honest, useful item; use an empty whereYouWereWrong array only when there is no material issue.
-`;
-
 const aiResponse = await askAi(messages);
-const parsed = parseAiJson(aiResponse);
-const confidence = clamp(parsed.confidence, 0, 100);
-const communication = clamp(parsed.communication, 0, 100);
-const correctness = clamp(parsed.correctness, 0, 100);
-const finalScore = clamp(parsed.score, 0, 10);
-const evaluation = parsed.feedback || {};
+const parsed = JSON.parse(aiResponse);
 
 question.answer = answer;
-// Preserve the application's 0-10 scale for aggregate calculations.
-question.confidence = Math.round(confidence / 10);
-question.communication = Math.round(communication / 10);
-question.correctness = Math.round(correctness / 10);
-question.score = finalScore;
-question.feedback = evaluation.summary || "Your answer has been evaluated. Review the detailed feedback in your report.";
-question.evaluation = evaluation;
+question.confidence = parsed.confidence;
+question.communication = parsed.communication;
+question.correctness = parsed.correctness;
+question.score = parsed.finalScore;
+question.feedback = parsed.feedback;
 
 await interview.save();
 
 return res.status(200).json({
-  feedback: question.feedback,
-  evaluation,
+  feedback:parsed.feedback
 })
 
 
@@ -603,7 +558,6 @@ Provide concise, practical feedback. Include 2-3 items in each array.
         question: q.question,
         score: q.score || 0,
         feedback: q.feedback || "",
-        evaluation: q.evaluation || null,
         confidence: q.confidence || 0,
         communication: q.communication || 0,
         correctness: q.correctness || 0,

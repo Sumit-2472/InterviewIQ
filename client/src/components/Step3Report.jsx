@@ -352,34 +352,6 @@ doc.save("AI_Interview_Report.pdf");
                     </p>
                   </div>
 
-                  {q.evaluation && (
-                    <div className="mt-4 space-y-4 rounded-xl border border-gray-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                      <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-200">{q.evaluation.summary}</p>
-
-                      {q.evaluation.whatYouDidWell?.length > 0 && (
-                        <section>
-                          <h4 className="text-sm font-semibold text-emerald-600">What you did well</h4>
-                          <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-gray-700 dark:text-gray-200">
-                            {q.evaluation.whatYouDidWell.map((item, index) => <li key={index}>{item}</li>)}
-                          </ul>
-                        </section>
-                      )}
-
-                      {q.evaluation.whereYouWereWrong?.map((item, index) => (
-                        <section key={index} className="rounded-lg bg-amber-50 p-3 dark:bg-amber-950/30">
-                          <h4 className="text-sm font-semibold text-amber-700 dark:text-amber-300">Where to improve</h4>
-                          <p className="mt-1 text-sm text-gray-700 dark:text-gray-200">{item.issue}</p>
-                          <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{item.reason}</p>
-                          <p className="mt-1 text-sm font-medium text-gray-800 dark:text-white">{item.correctWay}</p>
-                        </section>
-                      ))}
-
-                      {q.evaluation.missingConcepts?.length > 0 && <p className="text-sm text-gray-700 dark:text-gray-200"><span className="font-semibold">Missing concepts:</span> {q.evaluation.missingConcepts.join(", ")}</p>}
-                      {q.evaluation.idealAnswer && <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-200"><span className="font-semibold">Interview-ready answer:</span> {q.evaluation.idealAnswer}</p>}
-                      {q.evaluation.improvementTips?.length > 0 && <p className="text-sm text-gray-700 dark:text-gray-200"><span className="font-semibold">Next steps:</span> {q.evaluation.improvementTips.join(" ")}</p>}
-                      {q.evaluation.interviewerComment && <p className="border-l-2 border-emerald-500 pl-3 text-sm italic text-gray-600 dark:text-gray-300">{q.evaluation.interviewerComment}</p>}
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
