@@ -25,6 +25,19 @@ const questionsSchema = new mongoose.Schema({
   correctness: {
     type: Number,default: 0,
   },
+  evaluation: {
+    summary: String,
+    whatYouDidWell: [String],
+    whereYouWereWrong: [{
+      issue: String,
+      reason: String,
+      correctWay: String,
+    }],
+    missingConcepts: [String],
+    idealAnswer: String,
+    improvementTips: [String],
+    interviewerComment: String,
+  },
 });
 
 
