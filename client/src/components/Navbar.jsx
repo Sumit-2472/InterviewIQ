@@ -10,6 +10,7 @@ import { ServerUrl } from "../App";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../redux/userSlice.js";
 import AuthModel from "./AuthModel.jsx";
+import ThemeToggle from "./ThemeToggle.jsx";
 import { useEffect, useRef } from "react";
 const Navbar = () => {
   const { userData } = useSelector((state) => state.user);
@@ -58,9 +59,9 @@ const Navbar = () => {
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="w-full max-w-6xl bg-white dark:bg-black rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-4 py-3 sm:px-8 sm:py-4 flex justify-between items-center relative transition-colors duration-300"
+        className="w-full max-w-6xl bg-white dark:bg-black rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-4 py-3 sm:px-8 sm:py-4 flex items-center justify-between gap-3 relative transition-colors duration-300"
       >
-        <div className="flex items-center gap-3 cursor-pointer">
+        <div className="flex shrink-0 items-center gap-3 cursor-pointer">
           <div className="bg-black dark:bg-green-600 text-white p-2 rounded-lg transition-colors duration-300">
             <BsRobot size={18} />
           </div>
@@ -70,7 +71,8 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-6 relative">
+        <div className="relative flex shrink-0 items-center gap-2 sm:gap-4">
+          <ThemeToggle className="h-9 w-9 sm:h-10 sm:w-10" />
           <div className="relative" ref={creditRef}>
             <button
               onClick={() => {

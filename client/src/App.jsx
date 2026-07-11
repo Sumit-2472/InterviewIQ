@@ -1,4 +1,4 @@
-import { Routes,Route } from 'react-router-dom'
+import { Routes,Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Auth from './pages/Auth.jsx'
 import { useEffect } from 'react';
@@ -14,6 +14,7 @@ import ThemeToggle from './components/ThemeToggle.jsx'
 
 function App() {
   const dispatch=useDispatch();
+  const location = useLocation();
 
   useEffect(()=>{ 
     const getUser=async()=>{
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <>
-      <ThemeToggle />
+      {location.pathname !== '/' && <ThemeToggle />}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/auth' element={<Auth />} />
