@@ -43,7 +43,7 @@ const Step3Report = ({ report }) => {
 
   const questionScoreData = questionWiseScore.map((score, index) => ({
     name: `Q${index + 1}`,
-    score: toPercentage(score.score),
+    score: Number(score.score) || 0,
   }));
 
   const skills = [
@@ -62,8 +62,8 @@ const Step3Report = ({ report }) => {
   const performanceText = performance.text;
   const shortTagline = finalReport?.overallFeedback || performance.tagline;
 
-const score = finalScore;
-const percentage = toPercentage(score);
+const score = Number(finalScore) || 0;
+const overallProgress = toPercentage(score);
 
 const downloadPDF = () => {
   const doc = new jsPDF("p", "mm", "a4");
@@ -111,7 +111,7 @@ const downloadPDF = () => {
   doc.setTextColor(0, 0, 0);
 
   doc.text(
-    `Final Score: ${percentage}%`,
+    `Final Score: ${score}/10`,
     pageWidth / 2,
     currentY + 10,
     { align: "center" }
@@ -158,7 +158,7 @@ autoTable(doc, {
   body: questionWiseScore.map((q, i) => [
     `${i + 1}`,
     q.question,
-    `${toPercentage(q.score)}%`,
+    `${Number(q.score) || 0}/10`,
     q.feedback,
   ]),
   styles: {
@@ -231,8 +231,8 @@ doc.save("AI_Interview_Report.pdf");
             </h3>
             <div className="relative w-20 h-20 sm:w-25 sm:h-25 mx-auto">
               <CircularProgressbar
-                value={percentage}
-                text={`${percentage}%`}
+                value={overallProgress}
+                text={`${score}/10`}
                 styles={buildStyles({
                   textSize: "15px",
                   pathColor: "#10b981",
@@ -298,8 +298,8 @@ doc.save("AI_Interview_Report.pdf");
                 <AreaChart data={questionScoreData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
-                  <YAxis domain={[0, 100]} tickFormatter={(value) => `${value}%`} />
-                  <Tooltip formatter={(value) => [`${value}%`, "Score"]} />
+                  <YAxis domain={[0, 10]} />
+                  <Tooltip formatter={(value) => [`${value}/10`, "Score"]} />
                   <Area
                     type="monotone"
                     dataKey="score"
@@ -336,7 +336,7 @@ doc.save("AI_Interview_Report.pdf");
                       </p>
                     </div>
                     <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full font-bold text-xs sm:text-sm w-fit">
-                      {toPercentage(q.score)}%
+                      {Number(q.score) || 0}/10
                     </div>
                   </div>
 
