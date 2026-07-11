@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { BsRobot, BsCoin } from "react-icons/bs";
 import { FaUserAstronaut } from "react-icons/fa";
@@ -54,12 +53,12 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="bg-[#f3f3f3] dark:bg-black transition-colors duration-300 flex justify-center px-4 pt-6">
+    <div className="bg-[#f3f3f3] dark:bg-black transition-colors duration-300 flex justify-center px-3 pt-3 sm:px-4 sm:pt-6">
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="w-full max-w-6xl bg-white dark:bg-black rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-8 py-4 flex justify-between items-center relative transition-colors duration-300"
+        className="w-full max-w-6xl bg-white dark:bg-black rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-xl border border-gray-200 dark:border-slate-700 px-4 py-3 sm:px-8 sm:py-4 flex justify-between items-center relative transition-colors duration-300"
       >
         <div className="flex items-center gap-3 cursor-pointer">
           <div className="bg-black dark:bg-green-600 text-white p-2 rounded-lg transition-colors duration-300">
@@ -71,7 +70,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <div className="flex items-center gap-6 relative">
+        <div className="flex items-center gap-3 sm:gap-6 relative">
           <div className="relative" ref={creditRef}>
             <button
               onClick={() => {
@@ -82,13 +81,13 @@ const Navbar = () => {
                 setShowCreditPopup(!showCreditPopup);
                 setShowUserPopup(false);
               }}
-              className="flex items-center gap-2 bg-gray-100 dark:bg-slate-800 text-black dark:text-white px-4 py-2 rounded-full text-md hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
+              className="flex items-center gap-2 bg-gray-100 dark:bg-slate-800 text-black dark:text-white px-3 sm:px-4 py-2 rounded-full text-sm sm:text-md hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors duration-300"
             >
               <BsCoin size={20} />
               {userData?.credits || 0}
             </button>
             {showCreditPopup && (
-              <div className="absolute right-12 mt-3 w-64 bg-white dark:bg-slate-900 shadow-xl border border-gray-200 dark:border-slate-700 rounded-lg p-5 z-50 transition-colors duration-300">
+              <div className="absolute right-0 mt-3 w-64 max-w-[calc(100vw-1.5rem)] bg-white dark:bg-slate-900 shadow-xl border border-gray-200 dark:border-slate-700 rounded-lg p-5 z-50 transition-colors duration-300">
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                   Need more credits to continue interviews?
                 </p>

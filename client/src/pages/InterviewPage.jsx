@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react';
 import Step1SetUp from '../components/Step1SetUp.jsx';
 import Step2Interview from '../components/Step2Interview.jsx';

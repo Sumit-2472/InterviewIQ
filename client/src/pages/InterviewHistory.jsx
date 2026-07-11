@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ServerUrl } from '../App.jsx'
@@ -35,9 +35,9 @@ function InterviewHistory() {
 
     }, [])
 return (
-<div className='min-h-screen bg-linear-to-br from-gray-50 to-emerald-50 py-10 transition-colors duration-300 dark:from-slate-950 dark:to-emerald-950/40'>
+<div className='min-h-screen overflow-x-hidden bg-linear-to-br from-gray-50 to-emerald-50 px-4 py-8 sm:px-6 sm:py-10 transition-colors duration-300 dark:from-slate-950 dark:to-emerald-950/40'>
 
-    <div className='w-[90vw] lg:w-[70vw] max-w-[90%] mx-auto'>
+    <div className='w-full max-w-5xl mx-auto'>
 
         <div className='mb-10 w-full flex items-start gap-4 flex-wrap'>
 
@@ -49,7 +49,7 @@ return (
             </button>
 
             <div>
-                <h1 className='text-3xl font-bold flex-nowrap text-gray-800 dark:text-white'>
+                <h1 className='text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white'>
                     Interview History
                 </h1>
 
@@ -95,7 +95,7 @@ return (
 
                 </div>
 
-                <div className="flex items-center gap-6">
+  <div className="flex flex-wrap items-center gap-4 sm:gap-6">
 
   {/* SCORE */}
   <div className="text-right">

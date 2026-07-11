@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { motion } from "motion/react";
@@ -103,7 +102,7 @@ function Home() {
     <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300 flex flex-col">
       <Navbar />
 
-      <div className="flex-1 px-6 py-20">
+      <div className="flex-1 overflow-x-hidden px-4 py-12 sm:px-6 sm:py-20">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center mb-6">
             <div className="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-sm px-4 py-2 rounded-full flex items-center gap-2 transition-colors duration-300">
@@ -116,7 +115,7 @@ function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl md:text-6xl font-semibold leading-tight max-w-4xl mx-auto text-black dark:text-white"
+              className="text-3xl sm:text-4xl md:text-6xl font-semibold leading-tight max-w-4xl mx-auto text-black dark:text-white"
             >
               Practice Interviews with{" "}
               <span className="relative inline-block">
@@ -142,7 +141,7 @@ function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
-              className="text-gray-500 dark:text-gray-300 mt-6 max-w-2xl mx-auto text-lg"
+              className="text-gray-500 dark:text-gray-300 mt-6 max-w-2xl mx-auto text-base sm:text-lg"
             >
               Role-based mock interviews with smart follow-ups, adaptive
               difficulty and real-time performance evaluation.
@@ -159,7 +158,7 @@ function Home() {
                 }}
                 whileHover={{ opacity: 0.9, scale: 1.03 }}
                 whileTap={{ opacity: 1, scale: 0.98 }}
-                className="bg-black text-white px-10 py-3 rounded-full hover:opacity-90 transition shadow-md"
+                className="max-w-full border border-transparent bg-black text-white px-6 sm:px-10 py-3 rounded-full hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 transition shadow-md dark:border-slate-500 dark:hover:border-slate-300 dark:focus-visible:ring-offset-black"
               >
                 Start Interview
               </motion.button>
@@ -174,7 +173,7 @@ function Home() {
                 }}
                 whileHover={{ opacity: 0.9, scale: 1.03 }}
                 whileTap={{ opacity: 1, scale: 0.98 }}
-                className="border border-gray-300 dark:border-gray-700 px-10 py-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-black dark:text-white transition"
+                className="max-w-full border border-gray-300 dark:border-slate-500 px-6 sm:px-10 py-3 rounded-full hover:bg-gray-100 dark:hover:border-slate-300 dark:hover:bg-gray-800 text-black dark:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-black transition"
               >
                 View History
               </motion.button>
@@ -228,12 +227,12 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl font-semibold text-center mb-16 text-black dark:text-white"
+              className="text-3xl sm:text-4xl font-semibold text-center mb-10 sm:mb-16 text-black dark:text-white"
             >
               Advanced AI <span className="text-green-600">Capabilities</span>
             </motion.h2>
 
-            <div className="grid md:grid-cols-2 gap-10">
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
               {features.map((item, index) => (
                 <motion.div
                   key={index}
@@ -241,7 +240,7 @@ function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300"
+                  className="min-w-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300"
                 >
                   <div className="flex flex-col md:flex-row items-center gap-8">
                     <div className="w-full md:w-1/2 flex justify-center">
@@ -275,12 +274,12 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-4xl font-semibold text-center mb-16 text-black dark:text-white"
+              className="text-3xl sm:text-4xl font-semibold text-center mb-10 sm:mb-16 text-black dark:text-white"
             >
               Advanced AI <span className="text-green-600">Capabilities</span>
             </motion.h2>
 
-            <div className="grid md:grid-cols-2 gap-10">
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
               {interviewModes.map((item, index) => (
                 <motion.div
                   key={index}
@@ -288,10 +287,10 @@ function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300"
+                  className="min-w-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-3xl p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="flex items-center justify-center gap-6">
-                    <div className="w-1/2">
+                  <div className="flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-6">
+                    <div className="w-full sm:w-1/2">
                     <h3 className="font-semibold mb-3 text-xl text-black dark:text-white">
                         {item.title}
                       </h3>

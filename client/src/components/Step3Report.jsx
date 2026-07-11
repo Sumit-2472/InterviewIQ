@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { motion } from "motion/react";
@@ -35,40 +34,36 @@ const Step3Report = ({ report }) => {
     finalReport,
   } = report;
 
+  // Scores are stored as 0–10 values. Keep that scale for evaluation logic,
+  // and convert only at the display boundary.
+  const toPercentage = (value) => {
+    const numericValue = Number(value) || 0;
+    return Math.round(Math.max(0, Math.min(100, numericValue <= 10 ? numericValue * 10 : numericValue)));
+  };
+
   const questionScoreData = questionWiseScore.map((score, index) => ({
     name: `Q${index + 1}`,
-    score: score.score || 0,
+    score: toPercentage(score.score),
   }));
 
   const skills = [
-    { label: "Confidence", value: confidence },
-    { label: "Communication", value: communication },
-    { label: "Correctness", value: correctness },
+    { label: "Confidence", value: toPercentage(confidence) },
+    { label: "Communication", value: toPercentage(communication) },
+    { label: "Correctness", value: toPercentage(correctness) },
   ];
-
-  let performanceText = "";
-  let shortTagline = "";
 
   const excellentScore = difficulty === "Hard" ? 7 : difficulty === "Easy" ? 8 : 8;
   const adequateScore = difficulty === "Hard" ? 4 : difficulty === "Easy" ? 6 : 5;
-
-  if (finalScore >= excellentScore) {
-    performanceText = "Ready for job opportunities.";
-    shortTagline = "Excellent clarity and structured responses.";
-  } else if (finalScore >= adequateScore) {
-    performanceText = "Needs minor improvement before interviews.";
-    shortTagline = "Good foundation, refine articulation.";
-  } else {
-    performanceText = "Significant improvement required.";
-    shortTagline = "Work on clarity and confidence.";
-  }
-
-  if (finalReport?.overallFeedback) {
-    shortTagline = finalReport.overallFeedback;
-  }
+  const performance = finalScore >= excellentScore
+    ? { text: "Ready for job opportunities.", tagline: "Excellent clarity and structured responses." }
+    : finalScore >= adequateScore
+      ? { text: "Needs minor improvement before interviews.", tagline: "Good foundation, refine articulation." }
+      : { text: "Significant improvement required.", tagline: "Work on clarity and confidence." };
+  const performanceText = performance.text;
+  const shortTagline = finalReport?.overallFeedback || performance.tagline;
 
 const score = finalScore;
-const percentage = (score / 10) * 100;
+const percentage = toPercentage(score);
 
 const downloadPDF = () => {
   const doc = new jsPDF("p", "mm", "a4");
@@ -102,9 +97,9 @@ const downloadPDF = () => {
 
   doc.setFontSize(12);
 
-  doc.text(`Confidence: ${confidence}`, margin + 10, currentY + 10);
-  doc.text(`Communication: ${communication}`, margin + 10, currentY + 18);
-  doc.text(`Correctness: ${correctness}`, margin + 10, currentY + 26);
+  doc.text(`Confidence: ${toPercentage(confidence)}%`, margin + 10, currentY + 10);
+  doc.text(`Communication: ${toPercentage(communication)}%`, margin + 10, currentY + 18);
+  doc.text(`Correctness: ${toPercentage(correctness)}%`, margin + 10, currentY + 26);
 
   currentY += 45;
 
@@ -116,7 +111,7 @@ const downloadPDF = () => {
   doc.setTextColor(0, 0, 0);
 
   doc.text(
-    `Final Score: ${finalScore}/10`,
+    `Final Score: ${percentage}%`,
     pageWidth / 2,
     currentY + 10,
     { align: "center" }
@@ -133,20 +128,11 @@ const downloadPDF = () => {
   currentY += 38;
 
   // ================= ADVICE =================
-  let advice = "";
-
-  if (finalReport?.finalAnalysis) {
-    advice = finalReport.finalAnalysis;
-  } else if (finalScore >= excellentScore) {
-    advice =
-      "Excellent performance. Maintain confidence and structure. Continue refining clarity and supporting answers with strong real-world examples.";
-  } else if (finalScore >= adequateScore) {
-    advice =
-      "Good foundation shown. Improve clarity and structure. Practice delivering concise, confident answers with stronger supporting examples.";
-  } else {
-    advice =
-      "Significant improvement required. Focus on structured thinking, clarity, and confident delivery. Practice answering aloud regularly.";
-  }
+  const advice = finalReport?.finalAnalysis || (finalScore >= excellentScore
+    ? "Excellent performance. Maintain confidence and structure. Continue refining clarity and supporting answers with strong real-world examples."
+    : finalScore >= adequateScore
+      ? "Good foundation shown. Improve clarity and structure. Practice delivering concise, confident answers with stronger supporting examples."
+      : "Significant improvement required. Focus on structured thinking, clarity, and confident delivery. Practice answering aloud regularly.");
 
   doc.setFillColor(255, 255, 255);
   doc.setDrawColor(220);
@@ -172,7 +158,7 @@ autoTable(doc, {
   body: questionWiseScore.map((q, i) => [
     `${i + 1}`,
     q.question,
-    `${q.score}/10`,
+    `${toPercentage(q.score)}%`,
     q.feedback,
   ]),
   styles: {
@@ -204,9 +190,9 @@ doc.save("AI_Interview_Report.pdf");
 
 
   return (
-    <div className="min-h-screen bg-white px-4 sm:px-6 lg:px-10 py-8 transition-colors duration-300 dark:bg-linear-to-br dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950">
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div className="mb-10 w-full flex items-start gap-4 flex-wrap">
+    <div className="min-h-screen overflow-x-hidden bg-white px-4 py-6 sm:px-6 sm:py-8 lg:px-10 transition-colors duration-300 dark:bg-linear-to-br dark:from-slate-950 dark:via-slate-900 dark:to-emerald-950">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="w-full flex items-start gap-3 sm:gap-4">
           <button
             onClick={() => navigate("/history")}
             className="mt-1 p-3 rounded-full bg-white shadow hover:shadow-md transition dark:bg-slate-900 dark:border dark:border-slate-700"
@@ -215,7 +201,7 @@ doc.save("AI_Interview_Report.pdf");
           </button>
 
           <div>
-            <h1 className="text-3xl font-bold flex-nowrap text-gray-800 dark:text-white">
+            <h1 className="text-2xl font-bold text-gray-800 sm:text-3xl dark:text-white">
               Interview Analytics Dashboard
             </h1>
 
@@ -227,7 +213,7 @@ doc.save("AI_Interview_Report.pdf");
 
         <button
         onClick={downloadPDF}
-        className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-md 
+        className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-md 
         transition-all duration-300 font-semibold text-sm sm:text-base whitespace-nowrap">
           Download PDF
         </button>
@@ -246,7 +232,7 @@ doc.save("AI_Interview_Report.pdf");
             <div className="relative w-20 h-20 sm:w-25 sm:h-25 mx-auto">
               <CircularProgressbar
                 value={percentage}
-                text={`${score}/10`}
+                text={`${percentage}%`}
                 styles={buildStyles({
                   textSize: "15px",
                   pathColor: "#10b981",
@@ -282,13 +268,13 @@ doc.save("AI_Interview_Report.pdf");
                   <div className="flex justify-between mb-2 text-sm sm:text-base">
                     <span>{s.label}</span>
                     <span className="font-semibold text-green-600">
-                      {s.value}
+                      {s.value}%
                     </span>
                   </div>
                   <div className="bg-gray-200 h-2 sm:h-3 rounded-full">
                     <div
                       className="bg-green-500 h-full rounded-full"
-                      style={{ width: `${s.value * 10}%` }}
+                      style={{ width: `${s.value}%` }}
                     ></div>
                   </div>
                 </div>
@@ -312,8 +298,8 @@ doc.save("AI_Interview_Report.pdf");
                 <AreaChart data={questionScoreData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
-                  <YAxis domain={[0, 10]} />
-                  <Tooltip />
+                  <YAxis domain={[0, 100]} tickFormatter={(value) => `${value}%`} />
+                  <Tooltip formatter={(value) => [`${value}%`, "Score"]} />
                   <Area
                     type="monotone"
                     dataKey="score"
@@ -350,7 +336,7 @@ doc.save("AI_Interview_Report.pdf");
                       </p>
                     </div>
                     <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full font-bold text-xs sm:text-sm w-fit">
-                      {q.score ?? 0}/10
+                      {toPercentage(q.score)}%
                     </div>
                   </div>
 

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import { useState } from 'react'
 import {motion} from "framer-motion";
 import { ServerUrl } from '../App.jsx';
 import axios from 'axios';
@@ -8,7 +8,6 @@ import {
   FaFileUpload,
   FaMicrophoneAlt,
   FaChartLine,
-  FaUserTimes,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '../redux/userSlice.js';
@@ -122,16 +121,16 @@ const features = [
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-4 transition-colors duration-300 dark:from-slate-950 dark:to-slate-900"
+      className="min-h-screen overflow-x-hidden flex items-center justify-center bg-linear-to-br from-gray-100 to-gray-200 px-3 py-4 sm:px-4 sm:py-6 transition-colors duration-300 dark:from-slate-950 dark:to-slate-900"
     >
       <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl grid md:grid-cols-2 overflow-hidden transition-colors duration-300 dark:bg-slate-900">
         <motion.div
            initial={{ x: -80, opacity: 0 }}
            animate={{ x: 0, opacity: 1 }}
            transition={{ duration: 0.7 }}
-           className="relative bg-linear-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center dark:from-emerald-950/60 dark:to-slate-900"
+           className="relative bg-linear-to-br from-green-50 to-green-100 p-6 sm:p-8 lg:p-12 flex flex-col justify-center dark:from-emerald-950/60 dark:to-slate-900"
         >
-        <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-6">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-6">
           Start Your AI Interview
         </h2>
         <p className="text-gray-600 dark:text-gray-300 mb-10">
@@ -163,9 +162,9 @@ const features = [
         initial={{ x: 80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="p-12 bg-white dark:bg-slate-900"
+        className="min-w-0 p-6 sm:p-8 lg:p-12 bg-white dark:bg-slate-900"
     >
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8">
           Interview SetUp
         </h2>
 
@@ -240,7 +239,7 @@ const features = [
           <motion.div
             whileHover={{ scale: 1.02 }}
             onClick={() => document.getElementById("resumeUpload").click()}
-            className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition dark:border-slate-600 dark:hover:bg-emerald-950/40"
+            className="border-2 border-dashed border-gray-300 rounded-xl p-5 sm:p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition dark:border-slate-600 dark:hover:border-emerald-400 dark:hover:bg-emerald-950/40"
           >
           <FaFileUpload className="text-4xl mx-auto text-green-600 mb-3" />
           <input
@@ -258,7 +257,7 @@ const features = [
             <motion.button
               whileHover={{ scale: 1.2 }}
               onClick={(e)=>{e.stopPropagation(); handleUploadResume();}}
-              className="mt-4 bg-gray-900 text-white py-2 px-5 rounded-lg hover:bg-gray-800 transition">
+              className="mt-4 max-w-full bg-gray-900 text-white py-2 px-5 rounded-lg hover:bg-gray-800 transition dark:bg-slate-700 dark:hover:bg-slate-600">
               {analyzing ? "Analyzing..." : "Analyze Resume"}
             </motion.button>
           )}
@@ -316,7 +315,7 @@ const features = [
           disabled={!role || !experience || loading}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.95 }}
-          className="w-full disabled:bg-gray-600 bg-green-600 hover:bg-green-700 text-white py-3 rounded-full text-lg font-semibold transition duration-300 shadow-md"
+          className="w-full border border-transparent bg-green-600 py-3 text-lg font-semibold text-white rounded-full shadow-md transition duration-300 hover:border-green-700 hover:bg-green-700 focus-visible:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:border-transparent disabled:bg-gray-600 disabled:opacity-70 dark:border-emerald-300 dark:hover:border-emerald-200 dark:focus-visible:border-white dark:focus-visible:ring-emerald-400 dark:focus-visible:ring-offset-slate-900"
         >
           {loading ? "Starting...": "Start Interview"}
         </motion.button>

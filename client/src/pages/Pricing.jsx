@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -113,8 +113,8 @@ function Pricing() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 to-emerald-50 py-16 px-6 transition-colors duration-300 dark:from-slate-950 dark:to-emerald-950/40">
-      <div className="max-w-6xl mx-auto mb-14 flex items-start gap-4">
+    <div className="min-h-screen overflow-x-hidden bg-linear-to-br from-gray-50 to-emerald-50 px-4 py-10 sm:px-6 sm:py-16 transition-colors duration-300 dark:from-slate-950 dark:to-emerald-950/40">
+      <div className="max-w-6xl mx-auto mb-10 sm:mb-14 flex items-start gap-3 sm:gap-4">
         <button
           onClick={() => navigate("/")}
           className="mt-2 p-3 rounded-full bg-white shadow hover:shadow-md transition dark:bg-slate-900 dark:border dark:border-slate-700"
@@ -122,16 +122,16 @@ function Pricing() {
           <FaArrowLeft className="text-gray-600 dark:text-gray-300" />
         </button>
         <div className="text-center w-full">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-4">
             Choose Your Plan
           </h1>
-          <p className="text-gray-500 dark:text-gray-300 text-lg mb-4">
+          <p className="text-gray-500 dark:text-gray-300 text-base sm:text-lg mb-4">
             Flexible pricing to match your interview preparation goals.
           </p>
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 max-w-6xl mx-auto">
         {plans.map((plan) => {
           const isSelected = selectedPlan === plan.id;
           return (
@@ -139,7 +139,7 @@ function Pricing() {
               key={plan.id}
               whileHover={!plan.default && { scale: 1.03 }}
               onClick={() => !plan.default && setSelectedPlan(plan.id)}
-              className={`relative rounded-3xl p-8 transition-all duration-300 
+              className={`relative min-w-0 rounded-3xl p-6 sm:p-8 transition-all duration-300 
                   border
                     ${
                       isSelected

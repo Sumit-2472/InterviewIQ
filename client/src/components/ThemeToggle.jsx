@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
 
 const ThemeToggle = () => {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button

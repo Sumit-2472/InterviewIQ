@@ -1,4 +1,3 @@
-import React from 'react'
 import { BsRobot } from "react-icons/bs";
 import { IoSparkles } from "react-icons/io5";
 import {motion} from 'motion/react'
@@ -9,7 +8,6 @@ import axios from 'axios';
 import { ServerUrl } from '../App';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice.js';
-import { FaBullseye } from 'react-icons/fa';
 function Auth({isModel=false}) {
     const dispatch=useDispatch();
     const handleGoogleAuth = async () => {
